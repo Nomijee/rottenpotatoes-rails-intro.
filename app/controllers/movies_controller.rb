@@ -8,7 +8,21 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
+    @all_ratings = Movie.all_ratings
+    @ratings_hash = Hash[@all_ratings.map{|key| [key,1]}.flatten]
+    
+    if (params[:session] == "clear")
+      session[:sort] = nil
+       session[:ratings] = nil
+    end
+    if (params[:ratings] != nil)
+      @ratings_hash = params[:ratings]
+      @movies = @movies.where(:rating => @ratings_hash.keys)
+      session[:ratings] = @ratings_hash
+    end
   end
+
+
 
   def new
     # default: render 'new' template
