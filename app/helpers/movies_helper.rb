@@ -4,10 +4,17 @@ module MoviesHelper
     count.odd? ?  "odd" :  "even"
   end
   
-  #tab change color
+  def chosen_rating?(rating)
+    chosen_ratings = session[:ratings]
+    return true if chosen_ratings.nil?
+    chosen_ratings.include? rating
+  end
   
- def hilite
-   params[:sort] == 'sortBy' ? { class: "hilite" } :{}
-   
- end
+  def hilite(column)
+    if(session[:sort].to_s == column)
+      return 'hilite'  
+    else
+      return nil 
+    end
+  end
 end
