@@ -3,4 +3,11 @@ module MoviesHelper
   def oddness(count)
     count.odd? ?  "odd" :  "even"
   end
+  
+  #tab change color
+  
+ def hilite
+   params[:sort] == 'sortBy' ? { class: "hilite" } :{}
+   
+ end
 end
